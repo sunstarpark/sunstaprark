@@ -1,0 +1,104 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("            숫자 야구 게임            ");
+            Console.WriteLine("--------------------------------------");
+
+            Ramdom random = new Ramdom();
+
+            int[] numbers = new int[3];
+            int index = 0;
+            while (index < 3)
+            {
+                numbers[index] = random.Next(0, 10);
+
+                bool hasDuplicate = false;
+                for (int j = 0; j < index; j++)
+                {
+                    if (numbers[index] == numbers[j])
+                    {
+                        hasDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (!hasDuplicate)
+                {
+                    index++;
+                }
+            }
+
+            Console.WriteLine("> 컴퓨터가 고른 숫자");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
+
+            int[] guesses = new int[3];
+            string[] inputMessages = { "> 첫번째 숫자를 입력하세요!", "> 두번째 숫자를 입력하세요!", "> 세번째 숫자를 입력하세요!" };
+
+            while (true)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.WriteLine(inputMessages[i]);
+                    guesses[i] = int.Parse(Console.ReadLine());
+                }
+
+                Console.WriteLine("> 내가 선택한 숫자");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.WriteLine(guesses[i]);
+                }
+
+                if (guesses[0] == guesses[1] || guesses[0] == guesses[2] || guesses[1] == guesses[2])
+                {
+                    Console.WriteLine("서로 다른 숫자를 입력해주세요!");
+                    continue;
+                }
+
+                int strikeCount = 0;
+                int ballCount = 0;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (guesses[i] == numbers[j])
+                        {
+                            if (i == j)
+                            {
+                                strikeCount++;
+                            }
+                            else
+                            {
+                                ballCount++;
+                            }
+                        }
+                    }
+                }
+
+                Console.Write(strikeCount);
+                Console.WriteLine(" 스트라이크♡");
+                Console.Write(ballCount);
+                Console.WriteLine(" 볼!");
+                Console.Write(3 - strikeCount - ballCount);
+                Console.WriteLine(" 아웃!!!");
+                
+                if (strikeCount == 3)
+                {
+                    Console.Write("★정답입니다★");
+                    break;
+
+}
+}
+}
+}
+}
